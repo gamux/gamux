@@ -1,0 +1,15 @@
+---
+# your user id
+userID: 114941803
+
+# path to userdata folder
+steam:
+  win32: 'C:\\Program Files (x86)\\Steam\\userdata\\'
+  linux: '~/.local/share/Steam/userdata/'
+  darwin: '\\Library\\Application Support\\Steam\\userdata\\'
+
+# make backups of the shortcuts file
+backup: true
+
+# tries to keep the current shortcut structure
+conservative: true

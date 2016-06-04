@@ -1,0 +1,37 @@
+{
+  "name": "gamux",
+  "version": "0.0.0",
+  "description": "Steam shortcuts manager.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamux/gamux.git"
+  },
+  "keywords": [
+    "steam",
+    "emulator",
+    "emulation",
+    "games",
+    "game"
+  ],
+  "author": "Christian Ferraz Lemos de Sousa",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gamux/gamux/issues"
+  },
+  "homepage": "https://github.com/gamux/gamux#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "fs-extra": "^0.30.0",
+    "glob": "^7.0.3",
+    "node-steam-shortcuts": "^1.1.0",
+    "ramda": "^0.21.0"
+  }
+}
