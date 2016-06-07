@@ -2,6 +2,26 @@
 
 const Promise = require('bluebird')
     , fs = Promise.promisifyAll(require('fs-extra'))
+    , path = require('path')
+    , yaml = require('js-yaml')
+    , R = require('ramda')
+
+module.exports = main
+
+function main(mode, state) {
+
+  if (mode === 'run') {
+
+  } else if (mode === 'update') {
+
+  } else if (mode === 'diagnose') {
+
+  }
+}
+
+/*
+const Promise = require('bluebird')
+    , fs = Promise.promisifyAll(require('fs-extra'))
     , state = require('./lib/state')
     , yaml = require('js-yaml')
     , R = require('ramda')
@@ -22,3 +42,4 @@ function main() {
 }
 
 process.nextTick(() => main())
+*/

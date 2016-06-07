@@ -31,6 +31,38 @@ Gamux is a environment for running non-steam games and emulated games.
   * __Main:__ Handles boot, mainly used by _Cli_.
   * __Cli:__ Handles command line options.
 
+## API
+
+The system has 2 initialization modes:
+
+* __Update:__ Full initialization that updates the game list.
+* __Play:__ Initializes just what is needed to play the game.
+
+### Extension API
+
+Extensions have 3 phases:
+
+1. __Initialization:__ Every extension is initialized at same time.
+2. __Process:__ Right after resolving the last initialization promise,
+every extension is processed.
+3. __Termination:__ Right after resolving the last termination promise,
+very extension is terminated, and after that gamux exits.
+
+#### initialize
+
+This function receives the current state and returns a promise
+
+#### process
+
+This function receives a gamux object with useful functions and a
+list of games.
+
+#### terminate
+
+This function receives a gamux object with useful functions and .
+
+
+
 ## Batteries Included
 
 ### Plugins

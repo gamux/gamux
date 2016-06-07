@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+const R = require('ramda')
+    , minimist = require('minimist')
+    , path = require('path')
+
+const main = require(path.join(__dirname, '..', 'index'))
+    , State = require(path.join(__dirname, '..', 'lib', 'state'))
+
+function cli(argv, valid) {
+  const keys = Object.keys(argv)
+
+  const invalid = R.not(
+    R.none(k => k === false,
+      R.map(f => f(keys), [
+
+        // checks for commands
+        k => argv._.length === 0,
+
+        // checks for invalid options
+        R.pipe(
+          R.filter(k => valid.indexOf(k) === -1),
+          R.length,
+          R.equals(0)
+        ),
+
+        // checks for valid options
+        R.pipe(
+          R.filter(k => valid.indexOf(k) !== -1),
+          R.length,
+          k => k <= 2
+        )
+      ])
+    )
+  )
+
+  if (invalid) { // invalid usage
+    console.warn("Unknown command, try `gamux --help` to learn the usage.")
+
+  } else if (argv.help) { // gamux --help
+    console.log('Usage:')
+    console.log('  $ gamux --help      | shows this message')
+    console.log('  $ gamux --game uid  | runs given game')
+    console.log('  $ gamux --update    | updates library')
+    console.log('  $ gamux             | diagnosis tool')
+
+  } else if (argv.game) { // gamux --game uid
+    main('run', new State(argv.game))
+
+  } else if (argv.update) { // gamux --update
+    main('update', new State())
+
+  } else { // diagnose mode
+    main('diagnose', new State())
+  }
+}
+
+cli(minimist(process.argv.slice(2)), ['help', 'game', 'update', '_'])
