@@ -1,45 +1,26 @@
 'use strict'
 
 const Promise = require('bluebird')
-    , fs = Promise.promisifyAll(require('fs-extra'))
     , path = require('path')
     , yaml = require('js-yaml')
     , R = require('ramda')
 
-module.exports = main
+const fs = Promise.promisifyAll(require('fs-extra'))
+    , glob = Promise.promisifyAll(require('glob'))
 
-function main(mode, state) {
+const gamux = require(path.join(__dirname, 'lib'))
 
-  if (mode === 'run') {
+module.exports = {
+  run(state) {
+  },
 
-  } else if (mode === 'update') {
+  update(state) {
+  },
 
-  } else if (mode === 'diagnose') {
-
+  diagnose(state) {
+    gamux.loader.initialize(state)
+      .then(ext => gamux.loader.execute(ext, state))
+      .then(ext => gamux.loader.terminate(ext, state))
+      .then(() => console.log('finish'))
   }
 }
-
-/*
-const Promise = require('bluebird')
-    , fs = Promise.promisifyAll(require('fs-extra'))
-    , state = require('./lib/state')
-    , yaml = require('js-yaml')
-    , R = require('ramda')
-
-function bootstrap() {
-  return fs.mkdirpAsync(state.root)
-    .then(fs.copyAsync(state.defaults, state.config, { clobber: false }))
-    .then(fs.mkdirpAsync(state.cache))
-}
-
-function save(game) {
-  return fs.outputFileAsync(game.path(), game.toJSON())
-}
-
-function main() {
-  return bootstrap()
-    .then(state.load())
-}
-
-process.nextTick(() => main())
-*/

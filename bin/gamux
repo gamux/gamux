@@ -5,7 +5,7 @@ const R = require('ramda')
     , path = require('path')
 
 const main = require(path.join(__dirname, '..', 'index'))
-    , State = require(path.join(__dirname, '..', 'lib', 'state'))
+    , state = require(path.join(__dirname, '..', 'lib', 'state'))
 
 function cli(argv, valid) {
   const keys = Object.keys(argv)
@@ -45,13 +45,13 @@ function cli(argv, valid) {
     console.log('  $ gamux             | diagnosis tool')
 
   } else if (argv.game) { // gamux --game uid
-    main('run', new State(argv.game))
+    main.run(state(argv.game))
 
   } else if (argv.update) { // gamux --update
-    main('update', new State())
+    main.update(state())
 
   } else { // diagnose mode
-    main('diagnose', new State())
+    main.diagnose(state())
   }
 }
 

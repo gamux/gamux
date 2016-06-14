@@ -1,6 +1,9 @@
 ---
 # your user id
-userID: 114941803
+id: 114941803
+
+# root folder for games and emulators
+root: 'C:\\Users\\Christian\\Desktop\\Emuladores'
 
 # path to userdata folder
 steam:
