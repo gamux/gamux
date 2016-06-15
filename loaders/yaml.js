@@ -1,4 +1,6 @@
 const Promise = require('bluebird')
+    , λ = require('ramda')
+    , yaml = require('js-yaml')
 
 
 module.exports = {
@@ -8,12 +10,16 @@ module.exports = {
 
   // match data
   matcher: {
-    search: ['*.yaml'],
+    search: ['*.yml'],
     ignore: []
   },
 
-  // platform data
-  platform(game) {
+  // location name
+  location: 'PC',
+
+  // analyze game by file
+  analyze(game) {
+
     return 'PC'
   },
 

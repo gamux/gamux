@@ -18,9 +18,11 @@ module.exports = {
   },
 
   diagnose(state) {
-    gamux.loader.initialize(state)
-      .then(ext => gamux.loader.execute(ext, state))
-      .then(ext => gamux.loader.terminate(ext, state))
+    gamux.loader.list(state)
+      .then(files => gamux.loader.load(files, state))
+      .then(loaders => gamux.loader.search(loaders, state))
+    //  .then(ext => gamux.loader.execute(ext, state))
+    //  .then(ext => gamux.loader.terminate(ext, state))
       .then(() => console.log('finish'))
   }
 }
