@@ -19,7 +19,6 @@ module.exports = {
 
   // analyze game by file
   analyze(game) {
-
     return 'PC'
   },
 
