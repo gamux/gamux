@@ -16,14 +16,12 @@ Gamux is a environment for running non-steam games and emulated games.
 
 ## Structure
 
-### The Four Pillars
+### The Three Pillars
 
   1. __State:__ Holds environment variables and behavior configuration.
   2. __Game:__ Game format used by _Plugins_ and _Extensions_, holds game
   information.
-  3. __Extension:__ Loads _Extensions_, extensions are used to extend gamux
-  behaviour.
-  4. __Plugin:__ Loads _Plugins_, plugins are simple game loaders.
+  4. __Plugins:__ Loads _Loader Plugins_ and _Deployer Plugins_.
 
 ### Miscellaneous
 

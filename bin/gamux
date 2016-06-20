@@ -1,58 +1,111 @@
 #!/usr/bin/env node
 
-const R = require('ramda')
+const λ        = require('ramda')
     , minimist = require('minimist')
-    , path = require('path')
+    , path     = require('path')
+    , gamux    = require(path.join(__dirname, '..', 'index'))
 
-const main = require(path.join(__dirname, '..', 'index'))
-    , state = require(path.join(__dirname, '..', 'lib', 'state'))
+const log  = console.log.bind(console)
+    , warn = console.warn.bind(console)
+
+function invalid() {
+  warn("Unknown command, try `gamux --help` to learn the usage.")
+}
+
+function help() {
+  log('Usage:')
+  log('  $ gamux --help             | shows this message')
+  log('  $ gamux --play loader:file | runs given game')
+  log('  $ gamux --update           | updates library')
+  log('  $ gamux                    | diagnosis tool')
+}
+
+function run(cmd, state) {
+  const params = λ.split(':', cmd)
+      , loader = params[0]
+      , file   = params[1]
+
+  return gamux.actions.play(loader, file, state)
+}
+
+function update(state) {
+  return gamux.actions.deploy(state)
+    .then(deployed => {
+      if (deployed.length > 0) {
+        log(deployed.length + ' game(s) deployed :)\n')
+      } else {
+        log('No games found :(\n')
+      }
+    })
+}
+
+function diagnose(state) {
+  const display = λ.forEach(g => log('  ~', g.name, '(' + g.platform + ')'))
+
+  return gamux.actions.search(state)
+    .then(games => {
+      if (games.length > 0) {
+        log(games.length + ' game(s) found:')
+        display(games)
+        log('\nRun `gamux --update` to deploy updates.\n')
+      } else {
+        log('No games found :(\n')
+      }
+    })
+}
 
 function cli(argv, valid) {
   const keys = Object.keys(argv)
 
-  const invalid = R.not(
-    R.none(k => k === false,
-      R.map(f => f(keys), [
+  const invalid = λ.not(
+    λ.none(k => k === false,
+      λ.map(f => f(keys), [
 
         // checks for commands
         k => argv._.length === 0,
 
         // checks for invalid options
-        R.pipe(
-          R.filter(k => valid.indexOf(k) === -1),
-          R.length,
-          R.equals(0)
+        λ.pipe(
+          λ.filter(k => valid.indexOf(k) === -1),
+          λ.length,
+          λ.equals(0)
         ),
 
         // checks for valid options
-        R.pipe(
-          R.filter(k => valid.indexOf(k) !== -1),
-          R.length,
+        λ.pipe(
+          λ.filter(k => valid.indexOf(k) !== -1),
+          λ.length,
           k => k <= 2
         )
       ])
     )
   )
 
-  if (invalid) { // invalid usage
-    console.warn("Unknown command, try `gamux --help` to learn the usage.")
+  if (invalid) {
+    // invalid usage
+    return invalid()
 
-  } else if (argv.help) { // gamux --help
-    console.log('Usage:')
-    console.log('  $ gamux --help      | shows this message')
-    console.log('  $ gamux --game uid  | runs given game')
-    console.log('  $ gamux --update    | updates library')
-    console.log('  $ gamux             | diagnosis tool')
+  } else if (argv.help) {
+    // gamux --help
+    return help()
 
-  } else if (argv.game) { // gamux --game uid
-    main.run(state(argv.game))
+  } else {
+    const state = gamux.state()
 
-  } else if (argv.update) { // gamux --update
-    main.update(state())
+    if (argv.play) {
+      // gamux --play loader:file
+      return run(argv.play, state)
 
-  } else { // diagnose mode
-    main.diagnose(state())
+    } else if (argv.update) {
+      // gamux --update
+      return update(state)
+
+    } else {
+      // diagnose
+      return  diagnose(state)
+    }
   }
 }
 
-cli(minimist(process.argv.slice(2)), ['help', 'game', 'update', '_'])
+// initialize
+cli(minimist(process.argv.slice(2)), ['help', 'play', 'update', '_'])
