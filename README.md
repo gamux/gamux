@@ -18,48 +18,17 @@ Gamux is a environment for running non-steam games and emulated games.
 
 ### The Three Pillars
 
-  1. __State:__ Holds environment variables and behavior configuration.
-  2. __Game:__ Game format used by _Plugins_ and _Extensions_, holds game
-  information.
-  4. __Plugins:__ Loads _Loader Plugins_ and _Deployer Plugins_.
-
-### Miscellaneous
-
-  * __Util:__ Some utility functions not found on _Ramda_.
-  * __Main:__ Handles boot, mainly used by _Cli_.
-  * __Cli:__ Handles command line options.
+  1. __Actions:__ Handles commom user initialization modes.
+  2. __State:__ Holds environment variables and behavior configuration.
+  3. __Plugins:__ Loads _Loader Plugins_ and _Deployer Plugins_.
 
 ## API
 
-The system has 2 initialization modes:
+The system has 3 initialization modes:
 
+* __Diagnose:__ Full initialization, displays the game list.
 * __Update:__ Full initialization that updates the game list.
 * __Play:__ Initializes just what is needed to play the game.
-
-### Extension API
-
-Extensions have 3 phases:
-
-1. __Initialization:__ Every extension is initialized at same time.
-2. __Process:__ Right after resolving the last initialization promise,
-every extension is processed.
-3. __Termination:__ Right after resolving the last termination promise,
-very extension is terminated, and after that gamux exits.
-
-#### initialize
-
-This function receives the current state and returns a promise
-
-#### process
-
-This function receives a gamux object with useful functions and a
-list of games.
-
-#### terminate
-
-This function receives a gamux object with useful functions and .
-
-
 
 ## Batteries Included
 
@@ -78,9 +47,7 @@ This function receives a gamux object with useful functions and .
 ### Extensions
 
 * Steam Integration
-* Game Launcher
 * Save Backup
-* Config Backup
 
 ## License
 
