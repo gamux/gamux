@@ -40,7 +40,9 @@ function update(state) {
 }
 
 function diagnose(state) {
-  const display = λ.forEach(g => log('  ~', g.name, '(' + g.platform + ')'))
+  const display = λ.forEach(g => log(λ.join('', [
+    '  ~ ', g.name, ' (', λ.join(', ', g.categories), ')'
+    ])))
 
   return gamux.actions.search(state)
     .then(games => {
