@@ -28,7 +28,7 @@ Gamux is a environment for running non-steam games and emulated games.
 The system has 3 initialization modes:
 
 * __Diagnose:__ Full initialization, displays the game list.
-* __Update:__ Full initialization that deploy updates.
+* __Update:__ Full initialization that deploys updates.
 * __Play:__ Initializes just what is needed to play the game.
 
 ## Batteries Included
