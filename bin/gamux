@@ -3,7 +3,7 @@
 const λ        = require('ramda')
     , minimist = require('minimist')
     , path     = require('path')
-    , gamux    = require(path.join(__dirname, '..', 'index'))
+    , gamux    = require(path.join(__dirname, '..', 'lib', 'index'))
 
 const log  = console.log.bind(console)
     , warn = console.warn.bind(console)
