@@ -18,11 +18,12 @@ Gamux is a environment for running non-steam games and emulated games.
 
 ### The Three Pillars
 
-  1. __Actions:__ Handles commom user initialization modes.
-  2. __State:__ Holds environment variables and behavior configuration.
-  3. __Plugins:__ Loads _Loader Plugins_ and _Deployer Plugins_.
+  1. __Actions:__ Handles user interaction.
+  2. __State:__ Holds environment variables and configurations.
+  3. __Plugins:__ Handles and loads plugins, there are currently two kinds
+  of plugins.
 
-## API
+## Initialization Modes
 
 The system has 3 initialization modes:
 
