@@ -1,3 +1,5 @@
+> **WARNING:** not maintained anymore, I'm using retroarch nowdays.
+
                             ___           ___           ___           ___           __
                            /  /\         /  /\         /  /\         /  /\         |  |\
                           /  /::\       /  /::\       /  /::|       /  /:/         |  |:|
